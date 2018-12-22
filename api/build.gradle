@@ -1,0 +1,29 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.16.RELEASE'
+    }
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+
+ext {
+    disruptorVersion = '3.4.2'
+    javaUuIdGeneratorVersion = '3.1.4'
+}
+
+dependencies {
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile "com.lmax:disruptor:${disruptorVersion}"
+    // 顺序 UUID 生成
+    compile "com.fasterxml.uuid:java-uuid-generator:${javaUuIdGeneratorVersion}"
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}

@@ -1,2 +1,3 @@
 rootProject.name = 'disruptor'
+include 'api'
 

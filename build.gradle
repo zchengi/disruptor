@@ -1,16 +1,28 @@
-plugins {
-    id 'java'
+ext {
+    junitVersion = '4.12'
+    lomBokeVersion = '1.16.20'
 }
 
-group 'com.cheng'
-version '1.0-SNAPSHOT'
+subprojects {
+    apply plugin: 'java'
 
-sourceCompatibility = 1.8
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // 编译使用 UTF-8
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    dependencies {
+
+
+        compile "org.projectlombok:lombok:${lombokVersion}"
+
+        testCompile "junit:junit:${junitVersion}"
+    }
 }
