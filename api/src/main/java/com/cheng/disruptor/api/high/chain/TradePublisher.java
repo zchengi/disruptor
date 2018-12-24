@@ -1,4 +1,4 @@
-package com.cheng.disruptor.api.high;
+package com.cheng.disruptor.api.high.chain;
 
 import com.lmax.disruptor.dsl.Disruptor;
 
@@ -10,10 +10,9 @@ import java.util.concurrent.CountDownLatch;
  */
 public class TradePublisher implements Runnable {
 
+    private static int PUBLISH_COUNT = 1;
     private Disruptor<Trade> disruptor;
     private CountDownLatch latch;
-
-    private static int PUBLISH_COUNT = 1;
 
     public TradePublisher(Disruptor<Trade> disruptor, CountDownLatch latch) {
         this.disruptor = disruptor;
