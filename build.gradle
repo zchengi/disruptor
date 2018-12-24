@@ -1,6 +1,6 @@
 ext {
     junitVersion = '4.12'
-    lomBokeVersion = '1.16.20'
+    lombokVersion = '1.16.20'
 }
 
 subprojects {
@@ -19,7 +19,6 @@ subprojects {
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
     dependencies {
-
 
         compile "org.projectlombok:lombok:${lombokVersion}"
 
