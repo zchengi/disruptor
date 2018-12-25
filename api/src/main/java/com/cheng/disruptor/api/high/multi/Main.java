@@ -6,11 +6,11 @@ import com.lmax.disruptor.WorkerPool;
 import com.lmax.disruptor.YieldingWaitStrategy;
 import com.lmax.disruptor.dsl.BasicExecutor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.lmax.disruptor.util.DaemonThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadFactory;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        ThreadFactory threadFactory = DaemonThreadFactory.INSTANCE;
+        ThreadFactory threadFactory = Executors.defaultThreadFactory();
 
         // 1. 创建 RingBuffer
         RingBuffer<Order> ringBuffer =

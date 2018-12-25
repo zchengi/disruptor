@@ -3,10 +3,10 @@ package com.cheng.disruptor.api.high.chain;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.lmax.disruptor.util.DaemonThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
@@ -20,8 +20,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         // 线程工厂用于创建创建线程，提交任务
-        ThreadFactory threadFactory = DaemonThreadFactory.INSTANCE;
-
+        ThreadFactory threadFactory = Executors.defaultThreadFactory();
         // 1.构建 Disruptor
         Disruptor<Trade> disruptor =
                 new Disruptor<>(Trade::new,
