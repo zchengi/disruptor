@@ -20,7 +20,7 @@ public class Main {
 
         // 参数准备工作
         OrderEventFactory orderEventFactory = new OrderEventFactory();
-        int ringBufferSize = 1024 * 1024;
+        int ringBufferSize = 4;
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
 
         /*
@@ -54,11 +54,11 @@ public class Main {
         OrderEventProducer producer = new OrderEventProducer(ringBuffer);
 
         ByteBuffer byteBuffer = ByteBuffer.allocate(8);
-        for (long i = 0; i < 100; i++) {
+        for (long i = 0; i < 5; i++) {
             byteBuffer.putLong(0, i);
             producer.sendData(byteBuffer);
         }
 
-//        disruptor.shutdown();
+        disruptor.shutdown();
     }
 }
