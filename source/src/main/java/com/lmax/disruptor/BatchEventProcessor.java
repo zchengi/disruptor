@@ -34,12 +34,19 @@ public final class BatchEventProcessor<T>
     private static final int HALTED = IDLE + 1;
     private static final int RUNNING = HALTED + 1;
 
+    // 判断 BatchEventProcessor 是否在运行
     private final AtomicInteger running = new AtomicInteger(IDLE);
+    // BatchEventProcessor 出现异常的时候用于补偿
     private ExceptionHandler<? super T> exceptionHandler = new FatalExceptionHandler();
+    // 获取真实的数据
     private final DataProvider<T> dataProvider;
+    // 序号栅栏：维护生产者消费者的协调类
     private final SequenceBarrier sequenceBarrier;
+    // 消费者接口实现
     private final EventHandler<? super T> eventHandler;
+    // RingBuffer 里真实有效的序号
     private final Sequence sequence = new Sequence(Sequencer.INITIAL_CURSOR_VALUE);
+    // 超时处理
     private final TimeoutHandler timeoutHandler;
     private final BatchStartAware batchStartAware;
 
@@ -113,10 +120,13 @@ public final class BatchEventProcessor<T>
     @Override
     public void run()
     {
+        // 判断线程是否在运行
         if (running.compareAndSet(IDLE, RUNNING))
         {
+            // 清空序号栅栏
             sequenceBarrier.clearAlert();
 
+            // 唤醒线程工作
             notifyStart();
             try
             {
@@ -149,7 +159,9 @@ public final class BatchEventProcessor<T>
 
     private void processEvents()
     {
+        // 接收对象
         T event = null;
+        // 获取下一个可用序号
         long nextSequence = sequence.get() + 1L;
 
         while (true)
@@ -162,6 +174,8 @@ public final class BatchEventProcessor<T>
                     batchStartAware.onBatchStart(availableSequence - nextSequence + 1);
                 }
 
+                // 消费者当前消费的序号 <= 实际生产者的可用序号
+                // 满足条件则消费者一直消费到最后一个序号
                 while (nextSequence <= availableSequence)
                 {
                     event = dataProvider.get(nextSequence);
