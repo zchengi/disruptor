@@ -1,0 +1,28 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.1.RELEASE'
+    }
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+ext {
+    disruptorVersion = '3.4.2'
+}
+
+dependencies {
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile "com.lmax:disruptor:${disruptorVersion}"
+    compile project(":netty-com")
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
