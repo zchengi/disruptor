@@ -22,7 +22,7 @@ dependencies {
 
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile "com.lmax:disruptor:${disruptorVersion}"
-    compile project(":netty-com")
+    compile project(":netty-common")
     
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

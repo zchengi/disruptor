@@ -3,5 +3,5 @@ include 'api'
 include 'source'
 include 'netty-server'
 include 'netty-client'
-include 'netty-com'
+include 'netty-common'
 
