@@ -19,9 +19,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         log.info("Server端: {}", request);
 
         TranslatorData response = new TranslatorData();
-        response.setId("resp: " + request.getId());
-        response.setName("resp: " + request.getName());
-        response.setMessage("resp: " + request.getMessage());
+        response.setId("server: " + request.getId());
+        response.setName("server: " + request.getName());
+        response.setMessage("server: " + request.getMessage());
 
         // 写出 response 响应信息
         ctx.writeAndFlush(response);

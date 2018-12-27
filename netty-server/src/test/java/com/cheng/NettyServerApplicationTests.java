@@ -1,4 +1,4 @@
-package com.cheng.server;
+package com.cheng;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
