@@ -33,8 +33,10 @@ public final class YieldingWaitStrategy implements WaitStrategy
         throws AlertException, InterruptedException
     {
         long availableSequence;
+        // 等待阀值
         int counter = SPIN_TRIES;
 
+        // 自旋
         while ((availableSequence = dependentSequence.get()) < sequence)
         {
             counter = applyWaitMethod(barrier, counter);

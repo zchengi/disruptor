@@ -31,6 +31,7 @@ public final class BlockingWaitStrategy implements WaitStrategy
         throws AlertException, InterruptedException
     {
         long availableSequence;
+        // 生产者序号 小于 消费者序号
         if (cursorSequence.get() < sequence)
         {
             synchronized (mutex)
