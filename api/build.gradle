@@ -15,6 +15,7 @@ apply plugin: 'org.springframework.boot'
 
 ext {
 //    disruptorVersion = '3.4.2'
+    javaUuIdGeneratorVersion = '3.1.4'
 }
 
 dependencies {
@@ -22,6 +23,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
 //    compile "com.lmax:disruptor:${disruptorVersion}"
     compile project(":source")
+    // 顺序 UUID 生成
+    compile "com.fasterxml.uuid:java-uuid-generator:${javaUuIdGeneratorVersion}"
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
